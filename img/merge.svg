@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 47">
+<!--    <rect x="0" y="0" width="13" height="48" fill="orange"></rect>-->
+<!--
+    <path fill="#353535" stroke="transparent" d="M 0 8 Q 10 8 13 0 L 13 45 Q 10 37 0 37"></path>
+    <path stroke="rgba(255,255,255,0.2)" d="M 0 9 Q 10 9 13 0" fill="transparent"></path>
+    <path fill="transparent" stroke="black" d="M 0 8 Q 10 8 13 0"></path>
+    <path fill="transparent" stroke="black" d=" M 13 45 Q 10 37 0 37"></path>
+-->
+    <path fill="rgb(113,113,113)" stroke="transparent" d="M 0 8 Q 10 8 13 0 L 13 45 Q 10 37 0 37"></path>
+    <path stroke="rgba(255,255,255,0.2)" d="M 0 9 Q 10 9 13 0" fill="transparent"></path>
+    <path fill="transparent" stroke="black" d="M 0 8 Q 10 8 13 0"></path>
+    <path fill="transparent" stroke="black" d=" M 13 45 Q 10 37 0 37"></path>
+    
+</svg>

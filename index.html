@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ER Designer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <script src="teamscript.js"></script>
+    <link rel="stylesheet" href="font/css/font-awesome.min.css">
+</head>
+<body>
+   <div class="connections"><svg id="SVG"></svg><div class="spacer"></div></div>
+    <div class="canvas"><div class="spacer"></div></div>
+    <div class="toolbar">
+        <span class="hovercollection">
+            <div class="button" data-action="add" data-tooltip="Add Table (Alt + N)">
+                <i class="fa fa-plus"></i>
+            </div>
+            <div class="button" data-action="upload" data-tooltip="Import and Load (Alt + I)">
+                <i class="fa fa-upload"></i>
+            </div>
+            <div class="button" data-action="download" data-tooltip="Download and Save (Alt + E)">
+                <i class="fa fa-download"></i>
+            </div>
+            <div class="button" data-action="team" data-tooltip="Share with Team (Alt + T)" data-teambutton="true">
+                <i class="fa fa-users"></i>
+            </div>
+<!--
+            <div class="button" data-action="er" data-tooltip="Convert to chang-er (Alt + D)">
+                <i class="lab">ER</i>
+            </div>
+-->
+            <div class="button" data-action="question" data-tooltip="Short tutorial and shortcuts (Alt + zero or F1)">
+                <i class="fa fa-question"></i>
+            </div>
+        </span>
+    </div>
+    <div id="flying"></div>
+    <div id="glasspane" class="out"></div>
+    <ul id="contextmenu" class="out">
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+    </ul>    
+    <div id="helppopup" data-status="close" onclick="hideHelp();">
+        <div class="content" onclick="event.stopPropagation();">
+            <div class="close" onclick="hideHelp();">
+                <i class="fa fa-times"></i>
+            </div>
+            <h3>Quick Help and Settings</h3>
+            <div class="tabbar">
+               <div class="hovereffect"></div>
+                <div class="tab active" onclick="helpTab(0)">Basic Interaction</div>
+                <div class="tab" onclick="helpTab(1)">Shortcuts</div>
+                <div class="tab" onclick="helpTab(2)">File</div>
+                <div class="tab" onclick="helpTab(3)">Team</div>
+                <div class="tab" onclick="helpTab(4)">Credits</div>
+            </div>
+            <div class="slidecontent">
+                <div class="dist">
+                    <div id="slideslider">
+<!--                       tab1-->
+                        <div class="tab" style="left: 00%;"><h4>Create Table</h4><p>Press on the <span class="button"><i class="fa fa-plus"></i></span> button on the toolbar or press and hold on the canvas to create a new table.<br>New tables will be generated with an &laquo;id&raquo; attribute set as primary key.</p><br><h4>Create Attribute</h4><p>Pressing on the <span class="button"><i class="fa fa-plus"></i></span> button on the top right corner of the table, will add an attribute.</p><br><h4>Drop Table</h4><p>To drop a table press on the <span class="button"><i class="fa fa-cog"></i></span> button on the top left corner of the chosen table. This will show the option row. After that click the &laquo;drop&raquo; button.</p><br><h4>Drop Attribute</h4><p>Click on the <span class="button"><i class="fa fa-angle-left"></i></span> button on the right of the attribute. In the option bar that appears click on &laquo;Delete&raquo;. This will remove all connections from and to this attribute automatically.</p><br><h4>Set &laquo;Primary Key&raquo;</h4><p>To mark an attribute as a primary key, just press on the <span class="button"><i class="fa fa-angle-left"></i></span> and than on the <span class="button"><i class="fa fa-key"></i></span> icon. This button toggles the primary key option.</p><br><h4>Set &laquo;Foreign Key&raquo;</h4><p>Click on the <span class="button"><i class="fa fa-angle-left"></i></span> button, than press on &laquo;Connect&raquo; and click the attribute you want to connect. <br><b>Notice:</b> You cann't connect two attributes from the same table. <br><b>Notice:</b> There is a shorthand for this action, without opening the optionrow, simply drag and drop a line from the source attribute to the destination attribute.</p><br><h4>Remove connection</h4><p>Click on <span class="button"><i class="fa fa-angle-left"></i></span>. If the attribute is connected to an other attribute, the &laquo;Connect&raquo; button will be replaced with a &laquo;Disconnect&raquo; button. This action will remove all connections <b>to</b> and <b>from</b> this attribute.</p><br><h4>Rename table</h4><p>To rename a table you can click on the <span class="button"><i class="fa fa-cog"></i></span> button on the top left corner of the table and than click the <span class="button"><i class="fa fa-pencil-square-o"></i></span>.<br><b>Shorthand:</b> Double click the table title.</p><br><h4>Rename attribute</h4><p>To rename an attribute press on the <span class="button"><i class="fa fa-angle-left"></i></span> button inside of the attribute row and than click on &laquo;rename&raquo;<br><b>Shorthand:</b> Doubleclick the attribute name.</p></div>
+<!--                        tab2-->
+                        <div class="tab" style="left: 100%;">
+                            <span class="button">alt</span> + <span class="button">N</span> = Create a new table. <br><br>
+                            <span class="button">alt</span> + <span class="button">0 (zero)</span> = Open help page on &laquo;shortcuts&raquo;<br><br>
+                            <span class="button">F1</span> = Open help page on &laquo;basic interaction&raquo; tab.<br><br>
+<!--
+                            <span class="button">alt</span> + <span class="button">H</span> = Show or Hide conenctions<br><br>
+                            <span class="button">alt</span> + <span class="button">E</span> = Generate ER-Model<br><br>
+                            <span class="button">alt</span> + <span class="button">O</span> = Order Tables<br><br>
+-->
+                            <span class="button">alt</span> + <span class="button">Enter</span> = Add new attribute to the last modified Table.<br><br>
+                            <span class="button">alt</span> + <span class="button">R</span> = Rename last modified attribute<br><br><span class="button">alt</span> + <span class="button">S</span> = Export as File<br><br>
+                            <span class="button">Esc</span> = Hide help page.<br><br>
+                        </div>
+<!--                        tab3-->
+                        <div class="tab" style="left: 200%;">
+                            <h4>Import a file</h4>
+                            <form action="#" onsubmit="stp(event);selectFileFromForm(this);return false;">
+                                <div class="dropzone">
+                                    <input type="file" onchange="selectFileFromInput(this);this.value='';">
+                                    <div class="label">Click or drop a file here to load it.</div>
+                                    <input type="submit" style="display:none;">
+                                </div>
+                            </form>
+                            <h4>Export as</h4>
+                            <div class="dbname">
+                                <label><span>Database name</span><input type="text" id="dbname" pattern="^[0-9a-zA-Z]+$" value="designer_db" placeholder="Database name"></label>
+                            </div>
+                            <div class="sbuttons">
+                                <button class="button sql" onclick="saveMySqlFile();">MySQL</button>
+                                <button class="button sqlite" onclick="saveSqliteFile();">Sqlite</button>
+                                <button class="button json" onclick="saveFile();">File</button>
+<!--                                <button class="button image" onclick="genER();">Image</button>-->
+                            </div>
+                            <span id="output">
+                               <br>
+                                <h4>Output</h4>
+                                <p class="outcontent"></p>
+                            </span>
+                        </div>
+<!--                        tab4-->
+                        <div class="tab" style="left: 300%;">
+                            <div class="statusswitch">
+                            <span class="label">Stopped</span>
+                            <span class="detail"></span>
+                            <span class="switch">
+                               
+                                <div class="switcher" data-switch="false" draggable="true">
+                                    <div class="knob"></div>
+                                    <div class="overflow">
+                                        <div class="background"><div class="left">On</div>
+                                        <div class="right">Off</div></div>
+                                    </div>
+                                </div>
+                                
+                            </span>
+                            </div>
+                            
+                            <div class="teamoutput"></div>
+                            
+                        </div>
+                        <!--                        tab5-->
+                        <div class="tab" style="left: 400%;"><h4>Author</h4>
+                        <p>I'm Alex Waldboth, the author of this designer. Feel free to contact me, if you have any questions.</p>
+                        <div class="sbuttons">
+                            <button class="button" onclick="location.href='https://www.facebook.com/flexy.stc'">Facebook</button>
+                            <button class="button sql" onclick="location.href='mailto:flexy@live.it?subject=ErDesigner'">Email</button>
+                        </div>
+                        <br>
+                        <h4>Version 0.8b</h4>
+                        <br>
+                        <h4>&copy; CC 2015</h4>
+                            <p>This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">http://creativecommons.org/licenses/by-nc-sa/4.0/</a>.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

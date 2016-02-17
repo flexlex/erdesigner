@@ -1,0 +1,76 @@
+CREATE DATABASE flexlex;
+USE flexlex;
+
+CREATE TABLE Rechnungen IF NOT EXISTS(
+path undefined,
+p_id undefined,
+type undefined,
+desc undefined,
+kunde_id undefined,
+datum undefined,
+id undefined PRIMARY KEY
+)engine=innodb;
+
+CREATE TABLE Status IF NOT EXISTS(
+id undefined PRIMARY KEY,
+name undefined
+)engine=innodb;
+
+CREATE TABLE Ersatzteile IF NOT EXISTS(
+id undefined PRIMARY KEY,
+name undefined,
+datum undefined,
+preis undefined,
+rep_id undefined
+)engine=innodb;
+
+CREATE TABLE Reparatur IF NOT EXISTS(
+kunde_id undefined,
+preis undefined,
+auto_id undefined,
+ende undefined,
+beginn undefined,
+id undefined PRIMARY KEY
+)engine=innodb;
+
+CREATE TABLE Marke IF NOT EXISTS(
+id undefined PRIMARY KEY,
+name undefined,
+logo undefined
+)engine=innodb;
+
+CREATE TABLE Farbe IF NOT EXISTS(
+id undefined PRIMARY KEY,
+name text,
+hashcode undefined
+)engine=innodb;
+
+CREATE TABLE Auto IF NOT EXISTS(
+id undefined PRIMARY KEY,
+modell undefined,
+seriennummer undefined,
+farb_id undefined,
+marke_id undefined,
+preis undefined,
+produktionsjahr undefined,
+status undefined
+)engine=innodb;
+
+CREATE TABLE Kunde IF NOT EXISTS(
+id undefined PRIMARY KEY,
+name undefined,
+nachname undefined,
+adresse undefined,
+plz undefined,
+geburtdatum undefined,
+tel undefined,
+email undefined
+)engine=innodb;
+
+ALTER TABLE Ersatzteile ADD FOREIGN KEY (rep_id) REFERENCES Reparatur(id);
+ALTER TABLE Reparatur ADD FOREIGN KEY (auto_id) REFERENCES Auto(id);
+ALTER TABLE Reparatur ADD FOREIGN KEY (kunde_id) REFERENCES Kunde(id);
+ALTER TABLE Auto ADD FOREIGN KEY (farb_id) REFERENCES Farbe(id);
+ALTER TABLE Auto ADD FOREIGN KEY (marke_id) REFERENCES Marke(id);
+ALTER TABLE Auto ADD FOREIGN KEY (status) REFERENCES Status(id);
+ALTER TABLE Rechnungen ADD FOREIGN KEY (kunde_id) REFERENCES Kunde(id);

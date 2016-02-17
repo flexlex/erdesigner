@@ -1,0 +1,15 @@
+CREATE DATABASE flexlex;
+USE flexlex;
+SET sql_notes = 0;
+
+CREATE TABLE phasen IF NOT EXISTS(
+  id undefined PRIMARY KEY,
+  name undefined UNIQUE,
+  new_attribute undefined,
+  new_attribute undefined,
+  new_attribute undefined,
+  new_attribute undefined
+)engine=innodb;
+
+SET sql_notes = 1;
+
