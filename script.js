@@ -1,4 +1,4 @@
-typemap={
+typemap={ //How are the type named 
     mysql:{
         "integer":"int",
         "date":"date",
@@ -14,9 +14,14 @@ typemap={
         "text":"text"
     }
 }
+//Is the client on a server?
 runningonserver = false;
+//informs other teammembers that something has changed
 autocommit=true;
 
+/** Check if an attribute is being edited
+@returns Boolean - true if editing
+*/
 function isediting()
 {
     var c = document.querySelectorAll(".db_entity > .front > .title input, .att_front input").length;
@@ -24,6 +29,9 @@ function isediting()
     return c > 0;
 }
 
+/** Generate Unique ID
+@returns string - a unique id used to identify entities and attributes
+*/
 function genuniquekey()
 {
     var rr = function(){
@@ -39,6 +47,9 @@ function genuniquekey()
     return k;
 }
 
+/** Check if client in running on server
+@note sets the runningonserver variable
+*/
 function checkIfRunningOnServer()
 {
     try{
@@ -67,6 +78,10 @@ function checkIfRunningOnServer()
     }
 }
 
+/**
+Shows a nice alert instead of standard alert()
+@param {string} message - The string to be shown
+*/
 function na(ms)
 {
     helpdialog(ms);
@@ -75,6 +90,10 @@ function na(ms)
     },6000);
 }
 
+/**
+Same as "na" (nicealert), but will not autodismiss
+@param {string} message - The string to be shown
+*/
 function helpdialog(ms)
 {
     var hd = document.querySelector("#helpdialog");
@@ -94,12 +113,19 @@ function helpdialog(ms)
         },50);
     },50);
 }
+
+/**
+dismisses the help-alert
+*/
 function helpdispose()
 {
     var hd = document.querySelector("#helpdialog");
     if(!!hd)hd.className="hide";
 }
 
+/** Show the tooltip
+@param {string} message - string representing the tooltipcontent
+*/
 function tooltip(ms)
 {
     var tt = document.querySelector("#flying");
@@ -107,17 +133,26 @@ function tooltip(ms)
     tt.className="in";
     
 }
+/** Hides the tooltip*/
 function tooltipdispose()
 {
     var tt = document.querySelector("#flying");
     tt.className="";
 }
 
+/**help function
+@para {number} minimum - the minimum value that can be returned
+@para {number} value - the value to be limited
+@para {number} maximum - the maximum value that can be returned
+*/
 function range(i,v,x)
 {
     return v < i ? i : v > x ? x : v;
 }
 
+/**Absolute Top Offset
+@para {DOMElement} element
+*/
 function ATO(ele)
 {
     var sum = 0;
@@ -128,6 +163,9 @@ function ATO(ele)
     }
     return sum;
 }
+/**Absolute Left Offset
+@para {DOMElement} element
+*/
 function ALO(ele)
 {
 
@@ -139,7 +177,7 @@ function ALO(ele)
     }
     return sum;
 }
-
+/**Sync scroll of SVG(connections) and the tables*/
 function reminispace()
 {
     Globals.svg.style.width=Globals.canvas.scrollWidth+"px";
@@ -148,6 +186,7 @@ function reminispace()
     Globals.connection.scrollTop=Globals.canvas.scrollTop;
 }
 
+/**Recalculates the space needed on the canvas*/
 function respace()
 {
     var max = [0,0];
