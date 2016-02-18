@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Erdesigner
 ===
 ###A tool to design database tables
@@ -74,3 +75,9 @@ If you are running the webapp on a server with php, you will be able to download
 If you opened just the index.html, you can still get the file content, since it will be shown in a div.
 
 ###MIT License
+=======
+# erdesigner
+A webapp to create Database Infrastructures
+
+
+>>>>>>> origin/master
