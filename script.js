@@ -266,6 +266,14 @@ function attributeByChild(ele)
     return null;
 }
 
+/**
+* Checks if two attributes (divs) are in the same tabòe
+* @private
+* @method isSameTable
+* @param {Object} element 1 (attribute div)
+* @param {Object} element 2 (attribute div)
+* @return {Boolean} returns if the two attributes are located in the same table
+*/
 function isSameTable(ele1,ele2)
 {
     var ent = DBClassesManager.getAllElement();
@@ -279,6 +287,13 @@ function isSameTable(ele1,ele2)
     return false;
 }
 
+/**
+* replaces two attributes in the same table (in the model array)
+* @private
+* @method replaceInArr
+* @param {Object} child 1 - div
+* @param {Object} child 2 - div
+*/
 function replaceInArr(c1,c2)
 {
     var a1 = attributeByChild(c1);
@@ -334,6 +349,14 @@ function replaceInArr(c1,c2)
     }
 }
 
+/**
+* IN DEVELOPMENT - Move an element from one position to another
+* @private
+* @method moveInArr
+* @param {Object} child 1 - div
+* @param {Object} child 2 - div
+* @param {Object} if true, child 2 is after child 1 (determin direction of movement)
+*/
 function moveInArr(c1,c2,after)
 {
     if(c1.parentNode!==c2.parentNode)
@@ -396,6 +419,13 @@ function moveInArr(c1,c2,after)
 //    changed();
 //}
 
+/**
+* Inserts a element after an other (this was necessary)
+* @private
+* @method insertAfter
+* @param {Object} toinsert
+* @param {Object} afterwhat
+*/
 function insertAfter(toinsert,afterwhat)
 {
     var ph = document.createElement("div");
@@ -407,6 +437,13 @@ function insertAfter(toinsert,afterwhat)
     
 }
 
+/**
+* Replaces two divs in a table
+* @private
+* @method replaceChild
+* @param {Object} child 1
+* @param {Object} child 2
+*/
 function replaceChild(c1,c2)
 {
     var parent = c1.parentNode;
@@ -497,6 +534,11 @@ function replaceChild(c1,c2)
     changed();
 }
 
+/**
+* This handles the geastures on the gui
+* @private
+* @class MouseEventGeatureHandler
+*/
 function MouseEventGeatureHandler()
 {
     var dragging = false;
@@ -620,10 +662,20 @@ function MouseEventGeatureHandler()
         data.startmouse.y = event.clientY;
         dragging = true;
     }
+    /**
+    * Start dragging the given alement
+    * @method beginDragging
+    * @param {DOMElement} element where the drag stars
+    */
     this.beginDragging=bd;
 };
 MouseEventGeatureHandler = new MouseEventGeatureHandler();
 
+/**
+* Manages the connection of attributes (foreign keys)
+* @private
+* @method MouseEventConnectHandler
+*/
 function MouseEventConnectHandler()
 {
     this.isDragging=function(){return dragging;}
@@ -762,11 +814,26 @@ function MouseEventConnectHandler()
         dragging=true;
         destroyed=false;
     }
+    /**
+    * Begin Connecting on Element
+    * @method beginConnecting
+    * @param {DOMElement} element where the drag stars
+    */
     this.beginConnecting=bd;
+    /**
+    * Instead of drag&drop the user clicked
+    * @methos clickConnect
+    * @param {DOMElement} element where the drag stars
+    */
     this.clickConnect=clickConnect;
 };
 MouseEventConnectHandler = new MouseEventConnectHandler();
 
+/**
+* Class that manages the Attributes of an Entity (table)
+* @private
+* @method DBAttribute
+*/
 function DBAttribute()
 {
     var self = this;
@@ -961,6 +1028,7 @@ function DBAttribute()
         self.ele.outerHTML="";
     }
     
+    //Info for serialization
     this.type = "INTEGER";
     this.name = "";
     this.special = [];
@@ -968,10 +1036,34 @@ function DBAttribute()
     this.hasForeign=hf;
     this.globalid = "";
     
+    //Methods
+    /**
+    * CreatesAnElement and adds all the handlers
+    * @private
+    * @method createElement
+    */
     this.createElement=ce;
+    /**
+    * show input for renaming
+    */
     this.editName=en;
+    /**
+    * Remove all connections
+    */
     this.removeConnectoins=removeConnectoins;
+    
+    /**
+    * Removes element from model and DOM
+    */
     this.removeMe=removeme;
+    
+    /**
+    * returns an object rapresenting the attribute
+    * @method serialize
+    * @param {Integer} Table Number (Number needed to identify the table)
+    * @param {Integer} Attribute Number (Number needed to identify the attribute in that table)
+    * @return {Object} serialized Attribute
+    */
     this.serialize=function(tb_nr,id_nr)
     {
         var r = {};
@@ -985,12 +1077,24 @@ function DBAttribute()
         
         return r;
     };
+    /**
+    * Sets a unique ID even among different instances of the ER-Designer
+    * @method setGlobalId
+    * @param {string} gid
+    */
     this.setGlobalId=function(gid)
     {
         self.globalid=gid;
     }
 }
 
+/**
+* Protocoll extention for Collections, returns the index of an element in a Collection (like an array)
+* @private
+* @method indexOf
+* @param {string} nm - String / Name
+* @return {Int} IDx of matched Item, if no matches are found returns -1
+*/
 HTMLOptionsCollection.prototype.indexOf=function(nm)
 {
     var o = this;
@@ -1001,6 +1105,10 @@ HTMLOptionsCollection.prototype.indexOf=function(nm)
     return -1;
 }
 
+/**
+* Syncs Model and Gui
+* @method refresh
+*/
 function refresh()
 {
     document.body.setAttribute("data-current","nothing");
@@ -1054,6 +1162,10 @@ function refresh()
     }
 }
 
+/**
+* Checks conenctions and draw them using SVG
+* @method reconnect
+*/
 function reconnect()
 {
     var xmlns = "http://www.w3.org/2000/svg";
@@ -1144,6 +1256,13 @@ function reconnect()
     }
 }
 
+/**
+* Description for stp
+* @private
+* @method stp
+* @param {Event} event - the event to be destroyed
+* @return {Object} description
+*/
 function stp(event)
 {
     try
