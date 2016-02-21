@@ -131,7 +131,6 @@ function tooltip(ms)
     var tt = document.querySelector("#flying");
     tt.innerHTML=ms;
     tt.className="in";
-    
 }
 /** Hides the tooltip*/
 function tooltipdispose()
@@ -151,7 +150,8 @@ function range(i,v,x)
 }
 
 /**Absolute Top Offset
-@para {DOMElement} element
+@param {DOMElement} element
+@return {Number} the sum of the top offset
 */
 function ATO(ele)
 {
@@ -164,7 +164,8 @@ function ATO(ele)
     return sum;
 }
 /**Absolute Left Offset
-@para {DOMElement} element
+@param {DOMElement} element
+@return {Number} the sum of the left offset
 */
 function ALO(ele)
 {
@@ -177,7 +178,9 @@ function ALO(ele)
     }
     return sum;
 }
-/**Sync scroll of SVG(connections) and the tables*/
+/**
+* Sync scroll of SVG(connections) and the tables
+*/
 function reminispace()
 {
     Globals.svg.style.width=Globals.canvas.scrollWidth+"px";
@@ -186,7 +189,12 @@ function reminispace()
     Globals.connection.scrollTop=Globals.canvas.scrollTop;
 }
 
-/**Recalculates the space needed on the canvas*/
+
+/**
+* Recalculated the space needed for the canvas
+* @private
+* @method respace
+*/
 function respace()
 {
     var max = [0,0];
@@ -209,6 +217,13 @@ function respace()
     reminispace();
 }
 
+/**
+* Description for entityByChild
+* @private
+* @method entityByChild
+* @param {DOMElement} ele - a Element contained in a entity div
+* @return {Object} - {ele:entityElement}
+*/
 function entityByChild(ele)
 {
     var d = DBClassesManager.getAllElement();
@@ -222,6 +237,13 @@ function entityByChild(ele)
     return {"ele":ele};
 }
 
+/**
+* Description for attributeByChild
+* @private
+* @method attributeByChild
+* @param {Object} ele
+* @return {Object} description
+*/
 function attributeByChild(ele)
 {
     var entities = DBClassesManager.getAllElement(), matched_attribute, matched=false;
